@@ -1,0 +1,136 @@
+<application packaged="2014-10-02T18:54:14" version="2.0" xmlns="http://aps-standard.org/ns/2">
+    <id>http://readyspace.com/bm-mgmt</id>
+    <name>bm-mgmt</name>
+    <version>1.0</version>
+    <release>1</release>
+    <vendor>
+        <name>ReadySpace (SG) Pte Ltd</name>
+        <homepage>https://www.readyspace.com.sg</homepage>
+    </vendor>
+    <packager>
+        <name>ReadySpace (SG) Pte Ltd</name>
+        <homepage>https://www.readyspace.com.sg</homepage>
+    </packager>
+	<presentation>
+		<summary>Bare Metal Server Management</summary>
+		<description>This package integrates Odin Automation with NOC-PS for the management of Bare Metal Server</description>
+		<icon path="images/icon.png"/>
+		<changelog>
+			<version release="1" version="1.0">
+				<entry>Initial release.</entry>
+			</version>
+		</changelog>
+		<categories>
+			<category>Samples</category>
+		</categories>
+		<navigation id="pcp" label="Cloud/Offer Management">
+			<var name="bmcloud" type-id="http://readyspace.com/bm-mgmt/bmcloud/1.0"/>
+			<plugs-to id="http://www.aps-standard.org/ui/application"/>
+			<item id="offers" label="Offer Management">
+				<view id="offers" label="Offers">
+					<view id="offer.new" label="New Offer">
+						<controls>
+							<cancel/>
+							<submit/>
+						</controls>
+					</view>
+					<view id="offer.edit" label="Offer {offer.name}">
+						<controls>
+							<cancel/>
+							<submit/>
+						</controls>
+						<var name="offer" type-id="http://readyspace.com/bm-mgmt/offer/1.0"/>
+					</view>
+				</view>
+			</item>
+			<item id="cloud.view" label="Cloud Setting">
+				<view id="cloud.view" label="Cloud">
+					<controls>
+						<submit label="Edit"/>
+					</controls>
+					<view id="cloud.edit" label="Edit Cloud">
+						<controls>
+							<cancel/>
+							<submit/>
+						</controls>
+					</view>
+				</view>
+			</item>
+		</navigation>
+		<navigation id="ccp" label="BM Management">
+			<var name="context" type-id="http://readyspace.com/bm-mgmt/context/1.0"/>
+			<plugs-to id="http://www.aps-standard.org/ui/service"/>
+			<item id="power" label="BM Management">
+				<view id="servers" label="Servers">
+					<view id="server.reprovision" label="Reprovision BMS">
+						<controls>
+							<cancel/>
+							<submit/>
+						</controls>
+						<var name="bms" type-id="http://readyspace.com/bm-mgmt/bms/1.0"/>
+					</view>
+					<view id="power" label="Power Control">
+						<var name="bms" type-id="http://readyspace.com/bm-mgmt/bms/1.0"/>
+					</view>
+					<view id="server.new" label="New BMS">
+						<controls>
+							<cancel/>
+							<next/>
+						</controls>
+						<var name="offer" type-id="http://readyspace.com/bm-mgmt/offer/1.0"/>
+					</view>
+					<view id="server.review" label="Review BMS">
+						<controls>
+							<submit/>
+							<prev/>
+						</controls>
+					</view>
+					<var name="context" type-id="http://readyspace.com/bm-mgmt/context/1.0"/>
+				</view>
+			</item>
+		</navigation>
+	</presentation>
+
+    <license-agreement>
+        <free/>
+        <text>
+            <name>End-User License Agreement</name>
+            <url>http://opensource.org/licenses/bsd-license</url>
+        </text>
+    </license-agreement>
+	<service id="bmclouds">
+		<code engine="php" path="scripts/bmclouds.php"/>
+		<presentation>
+			<name>BM Cloud Globals Setting</name>
+			<summary>BM Cloud Application Global Service</summary>
+		</presentation>
+	</service>
+	<service id="contexts">
+		<code engine="php" path="scripts/contexts.php"/>
+		<presentation>
+			<name>BM Management</name>
+			<summary>BM Management Environment</summary>
+		</presentation>
+	</service>
+	<service id="bmses">
+		<code engine="php" path="scripts/bmses.php"/>
+		<presentation>
+			<name>Bare Metal Server</name>
+			<summary>Cloud Bare Metal Server</summary>
+			<entry-points>
+				<entry dst="http://readyspace.com/bm-mgmt#servers"
+					   class="aps2-view">
+					<label>BM Management</label>
+				</entry>
+			</entry-points>
+		</presentation>
+	</service>
+	<service id="offers">
+		<code engine="php" path="scripts/offers.php"/>
+		<presentation>
+			<name>BMS Offer</name>
+			<summary>Bare Metal Server Offer</summary>
+		</presentation>
+	</service>
+
+</application>

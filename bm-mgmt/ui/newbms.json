@@ -1,0 +1,27 @@
+{
+  "aps": {
+    "type": "http://readyspace.com/bm-mgmt/bms/1.0"
+  },
+  "state": "Stopped",
+  "OS": {
+    "id":"",
+    "name":""
+  },
+  "hardware": {
+    "CPU": {
+      "number": 4,
+      "description" : "Test"
+    },
+    "diskspace": 150,
+    "memory": 8
+  },
+  "name": "",
+  "description": "",
+  "offer": {
+    "aps":
+    {
+      "link": "strong",
+      "id":""
+    }
+  }
+}

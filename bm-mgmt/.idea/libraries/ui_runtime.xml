@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="ui-runtime" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$APPLICATION_PLUGINS_DIR$/aps/lib/ui-runtime" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$APPLICATION_PLUGINS_DIR$/aps/lib/ui-runtime" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>

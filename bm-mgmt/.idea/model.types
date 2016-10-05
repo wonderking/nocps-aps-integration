@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ASCII"?>
+<aps:APSPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aps="http://aps-standard.org/ns/2" projectName="bm-mgmt">
+  <internalTypes id="http://readyspace.com/bm-mgmt/offer" version="1.0" relations="//@relations.0/@source //@relations.1/@source //@relations.2/@source" name="offers" implements="//@typesFromLibrary.0">
+    <properties name="name" type="string"/>
+    <properties name="description" type="string"/>
+    <properties name="hardware" type="Hardware" description="Server Hardware"/>
+    <properties name="poolIdfrom" type="string" description="Pool ID for NOC-PS"/>
+    <properties name="poolIddest" type="string" description="Pool ID for NOC-PS"/>
+    <structures name="CPU">
+      <properties name="description" type="string"/>
+      <properties name="number" type="integer" description="Number of CPU cores"/>
+    </structures>
+    <structures name="Hardware">
+      <properties name="memory" type="integer" description="RAM Size in GB"/>
+      <properties name="diskspace" type="integer" description="Disk Space in GB"/>
+      <properties name="CPU" type="CPU" description="Server CPU Parameter"/>
+    </structures>
+  </internalTypes>
+  <internalTypes id="http://readyspace.com/bm-mgmt/context" version="1.0" relations="//@relations.3/@source //@relations.4/@source //@relations.5/@source //@relations.6/@source //@relations.2/@target" name="contexts" implements="//@typesFromLibrary.0">
+    <properties name="contextid" type="string" readonly="true"/>
+    <properties name="contextpass" type="string" readonly="true"/>
+    <operations name="profiles" verb="GET" path="/profiles"/>
+  </internalTypes>
+  <internalTypes id="http://readyspace.com/bm-mgmt/bmcloud" version="1.0" relations="//@relations.3/@target //@relations.0/@target" application="true" name="bmclouds" implements="//@typesFromLibrary.1">
+    <properties name="apphost" type="string" description="Endpoint Server IP/Domain Name"/>
+    <properties name="endpointadmin" type="string" description="Endpoint Server Administrator Username"/>
+    <properties name="endpointpass" type="string" description="Endpoint Server Administrator Password"/>
+    <properties name="nocpsURL" type="string" description="NOC-PS Deployment URL"/>
+    <properties name="nocpsUser" type="string" description="NOC-PS Username"/>
+    <properties name="nocpsPass" type="string" description="NOC-PS Password"/>
+  </internalTypes>
+  <internalTypes id="http://readyspace.com/bm-mgmt/bms" version="1.0" relations="//@relations.6/@target //@relations.1/@target" name="bmses" implements="//@typesFromLibrary.0 //@typesFromLibrary.2">
+    <properties name="name" type="string" description="Server Name"/>
+    <properties name="description" type="string" description="Server Description"/>
+    <properties name="state" type="string" description="Server State"/>
+    <properties name="hardware" type="Hardware" description="Server Hardware"/>
+    <properties name="OS" type="OS" description="Operating System"/>
+    <properties name="poolIdfrom" type="string" description="Pool ID for NOC-PS"/>
+    <properties name="poolIddest" type="string" description="Pool ID for NOC-PS"/>
+    <properties name="macAdd" type="string"/>
+    <properties name="ipAdd" type="string"/>
+    <properties name="hostname" type="string"/>
+    <properties name="rootpass" type="string"/>
+    <properties name="adminuser" type="string"/>
+    <properties name="adminpass" type="string"/>
+    <properties name="paymentstatus" type="boolean"/>
+    <properties name="provisioningstatus" type="string"/>
+    <operations name="provisionstatus" verb="GET" path="/provisionstatus"/>
+    <operations name="poweron" verb="POST" path="/poweron"/>
+    <operations name="poweroff" verb="POST" path="/poweroff"/>
+    <operations name="powerreset" verb="POST" path="/powerreset"/>
+    <operations name="reprovision" verb="PUT" path="/reprovision"/>
+    <structures name="CPU">
+      <properties name="description" type="string"/>
+      <properties name="number" type="integer" description="Number of CPU cores"/>
+    </structures>
+    <structures name="Hardware">
+      <properties name="memory" type="integer" description="RAM Size in GB"/>
+      <properties name="diskspace" type="integer" description="Disk Space in GB"/>
+      <properties name="CPU" type="CPU" description="Server CPU Parameter"/>
+    </structures>
+    <structures name="OS">
+      <properties name="id" type="string"/>
+      <properties name="name" type="string" description="Operating System"/>
+    </structures>
+  </internalTypes>
+  <typesFromLibrary id="http://aps-standard.org/types/core/resource" version="1.0" name="Resource">
+    <operations name="provision" verb="POST" path="/"/>
+    <operations name="retrieve" verb="GET" path="/"/>
+    <operations name="configure" verb="PUT" path="/"/>
+    <operations name="unprovision" verb="DELETE" path="/"/>
+    <structures name="Counter">
+      <properties name="usage" type="integer"/>
+      <properties name="limit" type="integer"/>
+    </structures>
+    <structures name="Limit">
+      <properties name="limit" type="integer"/>
+    </structures>
+    <structures name="Usage">
+      <properties name="usage" type="integer"/>
+    </structures>
+    <structures name="NotificationSource">
+      <properties name="type" type="string" description="APS Type of source resources"/>
+      <properties name="id" type="string" description="Resource which is source of event"/>
+    </structures>
+    <structures name="Notification">
+      <properties name="type" type="string" description="Type of event (URI)" required="true"/>
+      <properties name="time" type="string" description="Date-time when event happens"/>
+      <properties name="serial" type="number" description="Serial number of event (incrementing)"/>
+      <properties name="source" type="NotificationSource" description="Resource originating the event"/>
+    </structures>
+  </typesFromLibrary>
+  <typesFromLibrary id="http://aps-standard.org/types/core/application" version="1.0" name="Application" implements="//@typesFromLibrary.0">
+    <operations name="upgrade" verb="POST" path="/upgrade"/>
+  </typesFromLibrary>
+  <typesFromLibrary id="http://aps-standard.org/types/core/suspendable" version="1.0" name="Suspendable">
+    <operations name="enable" verb="PUT" path="/enable"/>
+    <operations name="disable" verb="PUT" path="/disable"/>
+  </typesFromLibrary>
+  <typesFromLibrary id="http://aps-standard.org/types/core/subscription" version="1.0" relations="//@relations.4/@target" name="Subscription">
+    <properties name="trial" type="boolean"/>
+    <properties name="disabled" type="boolean"/>
+    <properties name="name" type="string"/>
+    <properties name="description" type="string"/>
+    <operations name="resources" verb="GET" path="/resources"/>
+    <structures name="SubscriptionResource">
+      <properties name="id" type="string" required="true"/>
+      <properties name="title" type="string"/>
+      <properties name="apsId" type="string"/>
+      <properties name="apsType" type="string"/>
+      <properties name="applicationId" type="string"/>
+      <properties name="property" type="string"/>
+      <properties name="usage" type="integer"/>
+      <properties name="limit" type="integer"/>
+      <properties name="autoprovisioning" type="boolean"/>
+      <properties name="unit" type="string" required="true"/>
+    </structures>
+  </typesFromLibrary>
+  <typesFromLibrary id="http://aps-standard.org/types/core/account" version="1.0" relations="//@relations.5/@target" name="Account">
+    <properties name="companyName" type="string" required="true"/>
+    <properties name="addressPostal" type="http://aps-standard.org/types/core/contact/1.1#Address" required="true"/>
+  </typesFromLibrary>
+  <relations>
+    <source type="//@internalTypes.0" name="cloud" required="true"/>
+    <target type="//@internalTypes.2" name="offers" collection="true"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.0" name="bmses" collection="true"/>
+    <target type="//@internalTypes.3" name="offer" required="true"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.0" name="context"/>
+    <target type="//@internalTypes.1" name="offers"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.1" name="bmcloud" required="true"/>
+    <target type="//@internalTypes.2" name="contexts" collection="true"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.1" name="subscription" required="true"/>
+    <target type="//@typesFromLibrary.3"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.1" name="account" required="true"/>
+    <target type="//@typesFromLibrary.4"/>
+  </relations>
+  <relations>
+    <source type="//@internalTypes.1" name="bmses" collection="true"/>
+    <target type="//@internalTypes.3" name="context" required="true"/>
+  </relations>
+</aps:APSPackage>

@@ -1,0 +1,16 @@
+{
+  "aps": {
+    "type": "http://readyspace.com/bm-mgmt/offer/1.0"
+  },
+
+  "hardware": {
+    "CPU":
+    {
+      "description":"Intel Xeon-1230V5 Processor",
+      "number": 4
+    },
+    "diskspace": 150,
+    "memory": 8
+  }
+
+}
